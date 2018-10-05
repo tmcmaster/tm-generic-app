@@ -11,6 +11,7 @@
     <script type="module">
       import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
       import '@polymer/iron-demo-helpers/demo-snippet';
+      import '@polymer/paper-button/paper-button.js';
     </script>
 
     <script type="module" src="../tm-generic-app.js"></script>
@@ -19,15 +20,54 @@
       <style is="custom-style" include="demo-pages-shared-styles">
       </style>
     </custom-style>
+
+    <script type="module">
+        import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+
+
+        class DemoMain extends PolymerElement {
+            static get template() {
+                return html`
+                  <style>
+                    :host {
+                      display: inline-block;
+                    }
+                  </style>
+                  <tm-generic-app login-required title="[[title]]" pages="[[pages]]">
+                      <my-view1 name="view1" slot="page"></my-view1>
+                      <my-view2 name="view2" slot="page"></my-view2>
+                      <my-view3 name="view3" slot="page"></my-view3>
+                      <div class="page4" name="view4" slot="page">
+                          <h3>Page Four</h3>
+                          <paper-button on-tap="_logout">Logout</paper-button>
+                      </div>
+                  </tm-generic-app>
+
+                `;
+            }
+            static get properties() {
+                return {
+                    title: {
+                        type: String,
+                        value: 'Demo App'
+                    },
+                    pages: {
+                        type: Array,
+                        value: [
+                            {name: 'view1', title: 'View One', lazy: true},
+                            {name: 'view2', title: 'View Two', lazy: true},
+                            {name: 'view3', title: 'View Three', lazy: true},
+                            {name: 'view4', title: 'View Four'}
+                        ]
+                    },
+                };
+            }
+        }
+
+        window.customElements.define('demo-main', DemoMain);
+    </script>
   </head>
   <body>
-    <div class="vertical-section-container centered">
-      <h3>Basic tm-generic-app demo</h3>
-      <demo-snippet>
-        <template>
-          <tm-generic-app></tm-generic-app>
-        </template>
-      </demo-snippet>
-    </div>
+    <demo-main></demo-main>
   </body>
 </html>
