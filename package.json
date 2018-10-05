@@ -26,5 +26,27 @@
     "manifest.json",
     "bower_components/webcomponentsjs/webcomponents-lite.min.js",
     "service-worker.js"
-  ]
+  ],
+  "version": "1.0.0",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmcmaster/tm-generic-app.git"
+  },
+  "keywords": [
+    "polymer",
+    "app",
+    "generic"
+  ],
+  "author": "Tim McMaster",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tmcmaster/tm-generic-app/issues"
+  },
+  "homepage": "https://github.com/tmcmaster/tm-generic-app#readme"
 }
