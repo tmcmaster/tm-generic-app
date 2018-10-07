@@ -8,6 +8,12 @@
 
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
+
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <!--<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>-->
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
+
     <script type="module">
       import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
       import '@polymer/iron-demo-helpers/demo-snippet';
@@ -15,6 +21,7 @@
     </script>
 
     <script type="module" src="../tm-generic-app.js"></script>
+    <script type="module" src=""></script>
 
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
@@ -23,7 +30,10 @@
 
     <script type="module">
         import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-
+        import '../pages/my-splash.js';
+        import '../pages/my-view1.js';
+        import '../pages/my-view2.js';
+        import '../pages/my-view3.js';
 
         class DemoMain extends PolymerElement {
             static get template() {
@@ -33,7 +43,9 @@
                       display: inline-block;
                     }
                   </style>
-                  <tm-generic-app login-required title="[[title]]" pages="[[pages]]">
+                  <!-- login-required  -->
+                  <tm-generic-app title="[[title]]" pages="[[pages]]" firebase-config="[[config]]" fullscreen login-required >
+                      <my-splash name="splash" slot="page"></my-splash>
                       <my-view1 name="view1" slot="page"></my-view1>
                       <my-view2 name="view2" slot="page"></my-view2>
                       <my-view3 name="view3" slot="page"></my-view3>
@@ -45,6 +57,7 @@
 
                 `;
             }
+
             static get properties() {
                 return {
                     title: {
@@ -54,12 +67,23 @@
                     pages: {
                         type: Array,
                         value: [
-                            {name: 'view1', title: 'View One', lazy: true},
-                            {name: 'view2', title: 'View Two', lazy: true},
-                            {name: 'view3', title: 'View Three', lazy: true},
+                            {name: 'view1', title: 'View One'},
+                            {name: 'view2', title: 'View Two'},
+                            {name: 'view3', title: 'View Three'},
                             {name: 'view4', title: 'View Four'}
                         ]
                     },
+                    config: {
+                        type: Object,
+                        value: {
+                            apiKey: "AIzaSyBYHSuS_qzcYUnwAc3KG_LSzhSN9wXDewU",
+                            authDomain: "stunt-hamster.firebaseapp.com",
+                            databaseURL: "https://stunt-hamster.firebaseio.com",
+                            projectId: "stunt-hamster",
+                            storageBucket: "stunt-hamster.appspot.com",
+                            messagingSenderId: "651006465873"
+                        }
+                    }
                 };
             }
         }
