@@ -248,6 +248,10 @@ class GenericApp extends PolymerElement {
         this.set('pagesMap', pagesMap);
     }
 
+    _firebaseConfigChanged(firebaseConfig) {
+        console.log("FirebaseConfig Changed: ", firebaseConfig);
+    }
+
     _routePageChanged(page) {
         //const page = pagePath.substr(window.MyAppGlobals.rootPath.length);
         if (page) {
