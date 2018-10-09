@@ -274,6 +274,8 @@ class GenericApp extends PolymerElement {
         if (this.narrow === true) {
             this.$.drawer.close();
         }
+
+        this.dispatchEvent(new CustomEvent('page-changed', {detail: {page: page}}));
     }
 }
 

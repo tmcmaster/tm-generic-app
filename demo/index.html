@@ -43,9 +43,9 @@
                       display: inline-block;
                     }
                   </style>
-                  <!-- login-required  -->
-                  <tm-generic-app title="[[title]]" pages="[[pages]]" firebase-config="[[config]]" fullscreen login-required >
-                      <my-splash name="splash" slot="page"></my-splash>
+                  <tm-generic-app title="[[title]]" pages="[[pages]]" firebase-config="[[config]]"
+                        on-page-changed="_pageChanged">
+                      <my-splash class="a" name="splash" slot="page"></my-splash>
                       <my-view1 name="view1" slot="page"></my-view1>
                       <my-view2 name="view2" slot="page"></my-view2>
                       <my-view3 name="view3" slot="page"></my-view3>
@@ -56,6 +56,22 @@
                   </tm-generic-app>
 
                 `;
+            }
+
+            ready() {
+                super.ready();
+                //this.addEventListener('page-changed', _pageChanged);
+            }
+            _pageChanged(e) {
+                const page = e.detail.page;
+
+              console.log('PAGE CHANGED: ', e.detail.page, this.shadowRoot.querySelectorAll('[name='+page));
+              const elements = this.shadowRoot.querySelectorAll('[name='+page+']');
+              elements.forEach(function(element) {
+                if (element.refresh !== undefined) {
+                    element.refresh();
+                }
+              });
             }
 
             static get properties() {

@@ -31,6 +31,10 @@ class MyView1 extends PolymerElement {
       </div>
     `;
   }
+
+  refresh() {
+    console.log('No Worries.');
+  }
 }
 
 window.customElements.define('my-view1', MyView1);
