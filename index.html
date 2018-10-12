@@ -1,15 +1,120 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="refresh" content="0;url=demo/" />
-    <title>tm-generic-app</title>
-  </head>
-  <body>
-    <!--
-        Visit demo/index.html to see live examples of your element running.
-        This page will automatically redirect you there when run in the browser
-        with `polymer serve`.
-      -->
-  </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>tm-generic-app demo</title>
+
+  <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+  <link rel="import" href="tm-generic-app.html">
+  <!--<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>-->
+  <!--<script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>-->
+  <!--<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />-->
+
+  <script type="module">
+      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+      import '@polymer/iron-demo-helpers/demo-snippet';
+      import '@polymer/paper-button/paper-button.js';
+  </script>
+
+  <script type="module" src="/tm-generic-app.js"></script>
+  <script type="module" src=""></script>
+
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </custom-style>
+
+  <script type="module">
+      import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+      import '../pages/my-splash.js';
+      import '../pages/my-view1.js';
+      import '../pages/my-view2.js';
+      import '../pages/my-view3.js';
+      import '/node_modules/tm-cube-image/tm-cube-image.js';
+      import '/node_modules/tm-cube-image/tm-cube-image-top.js';
+
+
+      class DemoMain extends PolymerElement {
+          static get template() {
+              return html`
+                  <style>
+                    :host {
+                      display: inline-block;
+                    }
+                  </style>
+                  <!--<link rel="import" href="/node_modules/tm-firebase/lib/firebaseui.css">-->
+                  <!--<tm-cube-image stickers="rbb rbb rrr | wwb wwb bbb | www rrw rrw"></tm-cube-image>-->
+                  <tm-generic-app title="[[title]]" pages="[[pages]]" firebase-config="[[config]]" on-page-changed="_pageChanged" login-required>
+                      <my-splash class="a" name="splash" slot="page"></my-splash>
+                      <my-view1 name="view1" slot="page"></my-view1>
+                      <my-view2 name="view2" slot="page"></my-view2>
+                      <my-view3 name="view3" slot="page"></my-view3>
+                        <div class="page4" name="view4" slot="page">
+                            <h3>Page Four</h3>
+                            <tm-cube-image-top on-select="_algSelected" no-move stickers="yyy yyy yyy | ___ ___ ___ ___" arrows="" flips=""></tm-cube-image-top>
+                            <tm-cube-image stickers="rbb rbb rrr | wwb wwb bbb | www rrw rrw"></tm-cube-image>
+                      </div>
+                      <!--<div class="page4" name="view4" slot="page">-->
+                  <!--<h3>Page Four</h3>-->
+                  <!--<paper-button on-tap="_logout">Logout</paper-button>-->
+                  <!--</div>-->
+                  </tm-generic-app>
+
+                  `;
+            }
+
+            ready() {
+                super.ready();
+            }
+            _pageChanged(e) {
+                const page = e.detail.page;
+
+              console.log('PAGE CHANGED: ', e.detail.page, this.shadowRoot.querySelectorAll('[name='+page));
+              const elements = this.shadowRoot.querySelectorAll('[name='+page+']');
+              elements.forEach(function(element) {
+                if (element.refresh !== undefined) {
+                    element.refresh();
+                }
+              });
+            }
+
+            static get properties() {
+                return {
+                    title: {
+                        type: String,
+                        value: 'Demo App'
+                    },
+                    pages: {
+                        type: Array,
+                        value: [
+                            {name: 'view1', title: 'View One'},
+                            {name: 'view2', title: 'View Two'},
+                            {name: 'view3', title: 'View Three'},
+                            {name: 'view4', title: 'View Four'}
+                        ]
+                    },
+                    config: {
+                        type: Object,
+                        value: {
+                            apiKey: "AIzaSyBYHSuS_qzcYUnwAc3KG_LSzhSN9wXDewU",
+                            authDomain: "stunt-hamster.firebaseapp.com",
+                            databaseURL: "https://stunt-hamster.firebaseio.com",
+                            projectId: "stunt-hamster",
+                            storageBucket: "stunt-hamster.appspot.com",
+                            messagingSenderId: "651006465873"
+                        }
+                    }
+                };
+            }
+        }
+
+        window.customElements.define('demo-main', DemoMain);
+    </script>
+</head>
+<body>
+<demo-main></demo-main>
+</body>
 </html>

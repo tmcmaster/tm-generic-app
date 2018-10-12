@@ -54,10 +54,10 @@ class GenericApp extends PolymerElement {
     static get template() {
         return html`
       <style>
-        :host {
+        :host { 
           --app-primary-color: #4285f4;
           --app-secondary-color: black;
-
+          
           display: block;
         }
 
@@ -105,9 +105,6 @@ class GenericApp extends PolymerElement {
         }
       </style>
       
-      <!--<script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>-->
-      <!--<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />-->
-    
       <app-location route="{{route}}" url-space-regex="^[[rootPath]]">
       </app-location>
 
